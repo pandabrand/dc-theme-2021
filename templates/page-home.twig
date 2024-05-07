@@ -1,0 +1,19 @@
+{% extends "base.twig" %}
+
+{% block header %}
+{% endblock %}
+{% block content %}
+	<div class="content-wrapper relative h-screen">
+		<article class="post-type-{{post.post_type}} relative h-full z-10" id="post-{{post.ID}}">
+			<section class="article-content h-full flex items-center justify-center p-12 relative">
+				<h1 class="article-h1 screen-reader-text">{{post.title}}</h1>
+				<div class="article-body absolute">
+					{% include "home-menu.twig" with { 'items' : menu.get_items } %}
+				</div>
+			</section>
+		</article>
+		<video muted playsInline loop autoPlay src={{ Image(post.meta('front_page_video')).src }} class="absolute z-0 top-0 left-0 h-full w-full object-cover">
+			<source type="video/mp4" src={{ Image(post.meta('front_page_video')).src  }} />
+		</video>
+	</div><!-- /content-wrapper -->
+{% endblock %}

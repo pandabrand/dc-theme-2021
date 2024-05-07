@@ -1,0 +1,330 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Dchristiansen-Regular';
+  src: url('../fonts/DC/Dchristiansen-Regular.otf'), url('../fonts/DC/Dchristiansen-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer components {
+  .screen-reader-text {
+    border: 0;
+    clip: rect(0,0,0,0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+}
+
+/* purgecss start ignore */
+p {
+  font-family: theme('fontFamily.sans[1]');
+  font-weight: 200;
+}
+
+b,
+strong {
+  font-family: theme('fontFamily.sans[0]');
+  font-weight: 700;
+}
+  .flickity-button {
+    @apply bg-gray-700;
+  }
+
+  .flickity-button:hover {
+    @apply bg-red-100;
+  }
+
+  .flickity-prev-next-button {
+    @apply w-8;
+    @apply h-8;
+    @apply rounded-md;
+  }
+
+  .flickity-button-icon {
+    @apply text-white;
+    @aaply fill-current;
+  }
+
+  /* position dots up a bit */
+  .flickity-page-dots {
+    bottom: -22px;
+  }
+
+  /* dots are lines */
+  .flickity-page-dots .dot {
+    height: 4px;
+    width: 40px;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .read-more {
+    @apply hover:text-purple-500;
+    @apply transition;
+    @apply: duration-500;
+    @apply ease-in-out;
+    display: block;
+  }
+.home-menu .menu-item a {
+  font-family: 'Dchristiansen-Regular', cursive;
+  font-size: 2rem;
+  color: rgb(82, 101, 120);
+  filter: contrast(190%) brightness(110%);
+  opacity: 0.75;
+}
+
+.home .article-body {
+  left: 9%;
+  top: 3%;
+}
+
+@media screen and ( min-width: 375px ) {
+  .home .article-body {
+    left: 15%;
+    top: 5%;
+  }  
+}
+
+@media screen and ( min-width: 768px ) {
+  .home .article-body {
+    left: 20%;
+    top: 15%;
+  }  
+}
+
+@media screen and ( min-width: 1024px ) {
+  .home .article-body {
+    left: 20%;
+    top: 5%;
+  }  
+}
+
+.masonry {
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+  column-count: 1;
+  -webkit-column-gap: 1em;
+  -moz-column-gap: 1em;
+  column-gap: 1em;
+  margin: 1.5em;
+  padding: 0;
+  -moz-column-gap: 1.5em;
+  -webkit-column-gap: 1.5em;
+  column-gap: 1.5em;
+  font-size: .85em;
+}
+
+.item {
+  display: inline-block;
+  background: transparent;
+  padding: 1em;
+  margin: 0 0 1.5em;
+  width: 100%;
+  -webkit-transition:1s ease all;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+ .item h2 {
+   text-shadow: 1px 1px 2px rgba(229, 231, 235, 0.7);
+ }
+.carousel-cell {
+  width: 100%;
+  height: 500px;
+  margin-right: 75px;
+}
+
+.carousel-cell img {
+  max-height: 450px;
+}
+
+.section-gallery.is-fullscreen .carousel-cell {
+  height: 100%;
+  width: 100%;
+}
+
+.section-gallery.is-fullscreen .carousel-cell .carousel-wrapper {
+  height: 100%;
+}
+
+.section-gallery.is-fullscreen .carousel-cell .carousel-wrapper img {
+  max-height: calc(100vh - 100px);
+}
+
+.section-gallery.is-fullscreen .carousel-cell .carousel-wrapper section.h-full {
+  height: initial;
+}
+
+.section-gallery.is-fullscreen {
+  padding-top: 35px;
+}
+
+@media screen and (min-width:1024px) {  
+  .masonry {
+    -webkit-column-count: 2;
+    -moz-column-count:2;
+    column-count: 2;
+    column-gap: 2em;
+    margin: 2.5em;
+    padding: 0;
+    -moz-column-gap: 2.5em;
+    -webkit-column-gap: 2.5em;
+    column-gap: 2.5em;
+  }
+
+  .item {
+    margin-bottom: 2rem;
+  }
+
+  .carousel-cell {
+    width: 50%;
+  }
+
+
+  form input[type="text"],
+  form input[type="email"],
+  form textarea {
+    width: initial;
+  }
+}
+
+.item img {
+  max-width:100%;
+}
+
+.tease-section:before,
+.tease-section:after {
+  pointer-events: none;
+}
+
+.tease-section:before,
+.tease-section:after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 50% 0;
+  background: 
+    linear-gradient(#000 0 0) top/100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: translateY(-150%);
+  transition: .4s,transform 0s .4s;
+}
+.tease-section:after {
+  inset: 16.5% 0 0 0;
+  background: 
+    linear-gradient(#000 0 0) bottom/100% 60%;
+  background-repeat: no-repeat;
+  transform: translateY(60%);
+}
+.tease-section:hover:before,
+.tease-section:hover:after {
+  transform:translateY(0);
+  opacity: 0.7;
+  transition: .4s;
+}
+
+.masonry .wp-block-embed.is-type-video iframe {
+  width: 100%;
+}
+
+.single-work .wp-block-embed.is-type-video iframe {
+  margin: auto;
+}
+
+.tease-section .h2 {
+  font-family: theme('fontFamily.sans[1]');
+}
+
+.brick {
+  -webkit-column-break-inside: avoid; /* Chrome, Safari */
+  page-break-inside: avoid;           /* Theoretically FF 20+ */
+  overflow: hidden;                   /* Theoretically FF 20+ */
+  break-inside: avoid-column;         /* IE 11 */
+}
+
+form p {
+  margin-bottom: 2rem;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+  width: 100%;
+  border:rgba(107, 114, 128, 0.7) solid 1px;
+}
+
+form input[type="submit"] {
+  padding: 8px 24px 11px;
+  box-shadow: 3px 3px 9px rgba(107, 114, 128, 0.3);
+}
+
+@media screen and (min-width:1024px) {  
+  form input[type="text"],
+  form input[type="email"],
+  form textarea {
+    width: initial;
+  }
+}
+
+.single .article-body p {
+  padding-bottom: 1.5rem;
+}
+
+.single .article-body a {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.hdr-logo .hdr-logo-link,
+#menu-items .menu-item {
+  display: inline-block;
+  position: relative;
+  padding: 10px;
+  color: #000;
+  background: linear-gradient(#000 0 0) center/100% 100% no-repeat #526578;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: .4s linear;
+}
+
+#menu-items .menu-item a {
+  color: #000;
+  background: linear-gradient(#000 0 0) center/100% 100% no-repeat #526578;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: .4s linear;
+}
+
+.hdr-logo .hdr-logo-link:hover,
+#menu-items .menu-item:hover {
+  background-size: 0 100%;
+}
+
+#menu-items .menu-item:hover a {
+  background-size: 0 100%;
+}
+
+.hdr-logo .hdr-logo-link:before,
+#menu-items .menu-item:before {
+  content:"";
+  position: absolute;
+  inset:auto 50% 0;
+  height: 2px;
+  background-color: inherit;
+  transition: inherit;
+}
+
+.hdr-logo .hdr-logo-link:hover:before,
+#menu-items .menu-item:hover:before {
+  inset:auto 0 0;
+}
+/* purgecss end ignore */

@@ -8,15 +8,26 @@
  * @since   Timber 0.1
  */
 
-/**
- * If you are installing Timber as a Composer dependency in your theme, you'll need this block
- * to load your dependencies and initialize Timber. If you are using Timber via the WordPress.org
- * plug-in, you can safely delete this block.
- */
-$composer_autoload = __DIR__ . '/vendor/autoload.php';
-if ( file_exists( $composer_autoload ) ) {
-	require_once $composer_autoload;
-	$timber = new Timber\Timber();
+define( 'ASSET_DIR', '/build/' );
+
+define( 'ASSET_CSS', ASSET_DIR . 'css/' );
+define( 'ASSET_JS', ASSET_DIR . 'js/' );
+define( 'ASSET_IMG', ASSET_DIR . 'img/' );
+
+function asset_path( $filename ) {
+	$manifest_path = get_stylesheet_directory() . ASSET_DIR . 'manifest.json';
+
+	if ( file_exists( $manifest_path ) ) {
+		$manifest = json_decode( file_get_contents( $manifest_path ), true );
+	} else {
+		$manifest = array();
+	}
+
+	if ( array_key_exists( $filename, $manifest ) ) {
+		return $manifest[ $filename ];
+	}
+
+	return $filename;
 }
 
 /**
@@ -41,6 +52,29 @@ if ( ! class_exists( 'Timber' ) ) {
 	return;
 }
 
+function dc2020_enqueue() {
+	wp_enqueue_style( 'long-cang', 'https://fonts.googleapis.com/css2?family=Long+Cang' );
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'letterize', 'https://cdn.jsdelivr.net/npm/letterizejs@2.0.1/lib/letterize.min.js', array(), true );
+	wp_enqueue_script( 'anime', 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js', array(), true );
+	wp_enqueue_script( 'dc2020', get_stylesheet_directory_uri() . ASSET_JS . asset_path( 'site.js' ), array( 'anime' ), true );
+	wp_enqueue_style( 'gl-lightbox-css', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css' );
+	wp_enqueue_script( 'gl-lightbox-js', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), true );
+	wp_enqueue_style( 'dc2020', get_stylesheet_directory_uri() . ASSET_CSS . asset_path( 'style.css' ) );
+}
+add_action( 'wp_enqueue_scripts', 'dc2020_enqueue' );
+
+function dc2021_nav_menu() {
+	register_nav_menus(
+		array(
+			'front' => __( 'Front Menu', 'dc20201-domain' ),
+		)
+	);
+}
+
+add_action( 'after_setup_theme', 'dc2021_nav_menu', 0 );
+
+
 /**
  * Sets the directories (inside your theme) to find .twig files
  */
@@ -57,7 +91,7 @@ Timber::$autoescape = false;
  * We're going to configure our theme inside of a subclass of Timber\Site
  * You can move this to its own file and include here via php's include("MySite.php")
  */
-class StarterSite extends Timber\Site {
+class DCSite extends Timber\Site {
 	/** Add timber support. */
 	public function __construct() {
 		add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
@@ -65,6 +99,8 @@ class StarterSite extends Timber\Site {
 		add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		add_filter( 'image_size_names_choose', array( $this, 'dc_custom_sizes' ) );
+		add_action( 'pre_get_posts', array( $this, 'target_main_query' ) );
 		parent::__construct();
 	}
 	/** This is where you can register custom post types. */
@@ -81,9 +117,9 @@ class StarterSite extends Timber\Site {
 	 * @param string $context context['this'] Being the Twig's {{ this }}.
 	 */
 	public function add_to_context( $context ) {
-		$context['foo']   = 'bar';
-		$context['stuff'] = 'I am a value set in your functions.php file';
-		$context['notes'] = 'These values are available everytime you call Timber::context();';
+		// $context['foo']   = 'bar';
+		// $context['stuff'] = 'I am a value set in your functions.php file';
+		// $context['notes'] = 'These values are available everytime you call Timber::context();';
 		$context['menu']  = new Timber\Menu();
 		$context['site']  = $this;
 		return $context;
@@ -141,6 +177,7 @@ class StarterSite extends Timber\Site {
 		);
 
 		add_theme_support( 'menus' );
+		add_image_size( 'archive-cover', 600 );
 	}
 
 	/** This Would return 'foo bar!'.
@@ -162,6 +199,38 @@ class StarterSite extends Timber\Site {
 		return $twig;
 	}
 
+
+	function dc_custom_sizes( $sizes ) {
+		return array_merge(
+			$sizes,
+			array(
+				'archive-cover' => __( 'Archive Cover' ),
+			),
+		);
+	}
+
+	function target_main_query( $query ) {
+		if ( ! is_admin() && $query->is_main_query() && ! is_home() ) {
+				$query->set( 'orderby', 'menu_order' );
+				$query->set( 'order', 'ASC' );
+				$query->set( 'posts_per_page', 15 );
+
+			if ( is_archive( 'section' ) ) {
+				$current_tax_query   = $query->tax_query->queries;
+				$current_tax_query[] = array(
+					'taxonomy' => 'header',
+					'terms'    => 'archive',
+					'field'    => 'slug',
+					'operator' => 'NOT IN',
+				);
+				$query->set( 'tax_query', $current_tax_query );
+			}
+		}
+	}
 }
 
-new StarterSite();
+new DCSite();
+
+include_once( 'inc/acf.php' );
+include_once( 'inc/twig-func.php' );
+

@@ -1,9 +1,19 @@
 {% extends "tease.twig" %}
 
 {% block content %}
-	<h2 class="h2"><a href="{{post.link}}">{{post.title}}</a></h2>
-		<p>{{post.preview.length(25)}}</p>
-		{% if post.thumbnail.src %}
-			<img src="{{post.thumbnail.src}}" />
-		{% endif %}
+	<div class="m-2 lg:m-6 md:flex">
+		<div class="mt-4 md:mt-0 md:ml-6 md:mr-6">
+			<h2 class="h2 text-2xl font-semibold mb-4"><a href="{{post.link}}">{{post.title}}</a></h2>
+			<p class="text-xs"><time datetime="{{ post.date|date('Y-m-d H:i:s') }}">{{ post.date }}</time></p>
+			<p>{{post.preview.length(25)}}</p>
+		</div>
+			{% if post.thumbnail.src %}
+				<div class="md:flex-shrink-0">
+					<img src="{{post.thumbnail.src('archive-cover')}}" />
+				</div>
+			{% endif %}
+	</div>
+	<div class="hr">
+		<hr/>
+	</div>
 {% endblock %}

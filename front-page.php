@@ -23,30 +23,8 @@
 
 $context = Timber::context();
 
-$timber_post     = new Timber\Post();
-$context['post'] = $timber_post;
-if ( get_field( 'archive_group', $timber_post->ID ) ) {
-	$archive_term = get_field( 'archive_group', $timber_post->ID );
-	$args         = array(
-		'post_type'   => 'section',
-		'post_status' => 'publish',
-		'tax_query'   => array(
-			'relation' => 'AND',
-			array(
-				'taxonomy' => 'header',
-				'field'    => 'slug',
-				'terms'    => array(
-					'archive',
-					$archive_term->slug,
-				),
-			),
-		),
-	);
-	$query                    = new WP_Query( $args );
-	$archive_posts            = $query->get_posts();
-	foreach ( $archive_posts as $archive_post ) {
-		$context['archive_posts'][] = new Timber\Post( $archive_post->ID );
-	}
-}
-
+$timber_post          = new Timber\Post();
+$context['post']      = $timber_post;
+$context['video_src'] = get_stylesheet_directory_uri() . ASSET_IMG . asset_path( 'landing_page072021.mp4' );
+$context['menu']      = new Timber\Menu( 'front' );
 Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
