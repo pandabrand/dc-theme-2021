@@ -23,8 +23,8 @@
 
 $context = Timber::context();
 
-$timber_post          = new Timber\Post();
+$timber_post          = Timber::get_post();
 $context['post']      = $timber_post;
 $context['video_src'] = get_stylesheet_directory_uri() . ASSET_IMG . asset_path( 'landing_page072021.mp4' );
-$context['menu']      = new Timber\Menu( 'front' );
+$context['menu']      = Timber::get_menu( 'front' );
 Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );

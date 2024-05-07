@@ -17,7 +17,7 @@
 $templates = array( 'archive-section.twig', 'archive.twig', 'index.twig' );
 
 $context          = Timber::context();
-$context['posts'] = new Timber\PostQuery();
+$context['posts'] = Timber::get_posts();
 
 $context['title'] = '';
 if ( is_day() ) {
@@ -43,14 +43,14 @@ if ( is_day() ) {
 	);
 
 	foreach ( $works[0] as $work ) {
-		$context['works'][] = new Timber\Post( $work->ID );
+		$context['works'][] = Timber::get_post( $work->ID );
 	}
 	array_unshift( $templates, 'taxonomy-' . get_query_var( 'taxonomy' ) . '-' . get_query_var( 'term' ) . '.twig' );
-	$term             = get_term_by( 'slug', get_query_var( 'term' ), 'header' );
-	$context['title'] = $term->name;
+	$title_term             = get_term_by( 'slug', get_query_var( 'term' ), 'header' );
+	$context['title'] = $title_term->name;
 } elseif ( is_tax( 'header' ) ) {
-	$term             = get_term_by( 'slug', get_query_var( 'term' ), 'header' );
-	$context['title'] = $term->name;
+	$title_term             = get_term_by( 'slug', get_query_var( 'term' ), 'header' );
+	$context['title'] = $title_term->name;
 }
 
 if ( is_tax( 'header' ) && ( 'drawings-paintings' === get_query_var( 'term' ) || 'projects' === get_query_var( 'term' ) ) ) {

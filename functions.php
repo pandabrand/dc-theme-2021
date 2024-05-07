@@ -7,6 +7,10 @@
  * @subpackage  Timber
  * @since   Timber 0.1
  */
+// Load Composer dependencies.
+require_once __DIR__ . '/vendor/autoload.php';
+
+$timber = Timber\Timber::init();
 
 define( 'ASSET_DIR', '/build/' );
 
@@ -28,28 +32,6 @@ function asset_path( $filename ) {
 	}
 
 	return $filename;
-}
-
-/**
- * This ensures that Timber is loaded and available as a PHP class.
- * If not, it gives an error message to help direct developers on where to activate
- */
-if ( ! class_exists( 'Timber' ) ) {
-
-	add_action(
-		'admin_notices',
-		function() {
-			echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php' ) ) . '</a></p></div>';
-		}
-	);
-
-	add_filter(
-		'template_include',
-		function( $template ) {
-			return get_stylesheet_directory() . '/static/no-timber.html';
-		}
-	);
-	return;
 }
 
 function dc2020_enqueue() {
@@ -95,12 +77,12 @@ class DCSite extends Timber\Site {
 	/** Add timber support. */
 	public function __construct() {
 		add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
-		add_filter( 'timber/context', array( $this, 'add_to_context' ) );
-		add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		add_filter( 'image_size_names_choose', array( $this, 'dc_custom_sizes' ) );
 		add_action( 'pre_get_posts', array( $this, 'target_main_query' ) );
+		add_filter( 'timber/context', array( $this, 'add_to_context' ) );
+		add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
 		parent::__construct();
 	}
 	/** This is where you can register custom post types. */
@@ -120,7 +102,7 @@ class DCSite extends Timber\Site {
 		// $context['foo']   = 'bar';
 		// $context['stuff'] = 'I am a value set in your functions.php file';
 		// $context['notes'] = 'These values are available everytime you call Timber::context();';
-		$context['menu']  = new Timber\Menu();
+		$context['menu']  = Timber::get_menu();
 		$context['site']  = $this;
 		return $context;
 	}

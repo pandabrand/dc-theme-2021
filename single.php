@@ -37,7 +37,7 @@ if ( 'work' === get_post_type( $timber_post->ID ) ) {
 	);
 	$timber_sections     = array_map(
 		function( $section ) {
-			return new Timber\Post( $section->ID );
+			return Timber::get_post( $section->ID );
 		},
 		$sections,
 	);

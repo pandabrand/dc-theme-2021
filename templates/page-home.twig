@@ -12,8 +12,8 @@
 				</div>
 			</section>
 		</article>
-		<video muted playsInline loop autoPlay src={{ Image(post.meta('front_page_video')).src }} class="absolute z-0 top-0 left-0 h-full w-full object-cover">
-			<source type="video/mp4" src={{ Image(post.meta('front_page_video')).src  }} />
+		<video muted playsInline loop autoPlay src={{ post.meta('front_page_video', { transform_value: true }).src }} class="absolute z-0 top-0 left-0 h-full w-full object-cover">
+			<source type="video/mp4" src={{ post.meta('front_page_video', { transform_value: true }).src  }} />
 		</video>
 	</div><!-- /content-wrapper -->
 {% endblock %}
