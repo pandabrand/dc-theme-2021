@@ -29,3 +29,5 @@ jobs:
             SOURCE: "."
             TARGET: ${{ secrets.REMOTE_TARGET}}
             EXCLUDE: "/node_modules/"
+            SCRIPT_BEFORE: |
+              ls -la
