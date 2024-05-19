@@ -33626,7 +33626,7 @@ video {
 @font-face {
   font-family: 'Dchristiansen-Regular';
 
-  src: url('../fonts/DC/Dchristiansen-Regular.otf'), url('../fonts/DC/Dchristiansen-Regular.ttf') format('truetype');
+  src: url('./build/fonts/DC/Dchristiansen-Regular.otf'), url('./build/fonts/DC/Dchristiansen-Regular.ttf') format('truetype');
 
   font-weight: normal;
 

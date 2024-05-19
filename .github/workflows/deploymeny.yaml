@@ -1,0 +1,31 @@
+name: Deploy Theme
+
+on:
+    push:
+        branches: deployment
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v3
+
+        - name: Install dependencies
+          run: |
+            composer install
+            yarn
+
+        - name: Build
+          run: |
+            yarn build prod
+        
+        - name: Rsync to server
+          uses: easingthemes/ssh-deploy@v5.0.3
+          with:
+            SSH_PRIVATE_KEY: ${{ secrets.DC_KEY }}
+            REMOTE_HOST: ${{ secrets.DC_HOST }}
+            REMOTE_USER: ${{ secrets.DC_USERNAME }}
+            SOURCE: "."
+            TARGET: ${{ secrets.REMOTE_TARGET}}
+            EXCLUDE: "/node_modules/"

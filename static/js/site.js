@@ -1,12 +1,12 @@
 document.addEventListener( 'DOMContentLoaded', animated );
 
 function animated() {
-  var menu = document.querySelectorAll('.letters');
-  menu.forEach(function( textWrapper ) {
+  const menu = document.querySelectorAll('.letters');
+  menu.forEach((textWrapper) => {
     textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
   })
   
-  var animation = anime.timeline({loop: false});
+  const animation = anime.timeline({loop: false});
   
   animation
   .add({
@@ -18,7 +18,7 @@ function animated() {
   });
 }
 
-jQuery( document ).ready( function( $ ) {
+jQuery( document ).ready( ($) => {
 
   // Your JavaScript goes here
 
@@ -26,14 +26,14 @@ jQuery( document ).ready( function( $ ) {
   const closeMenu = document.getElementById("close-menu");
   const menuItems = document.getElementById("menu-items");
   
-  openMenu.addEventListener("click", (event) => {
+  openMenu && openMenu.addEventListener("click", (event) => {
     event.preventDefault();
     openMenu.classList.add("hidden");
     closeMenu.classList.remove("hidden");
     menuItems.classList.remove("hidden");
   });
   
-  closeMenu.addEventListener("click", (event) => {
+  closeMenu && closeMenu.addEventListener("click", (event) => {
     event.preventDefault();
     openMenu.classList.remove("hidden");
     closeMenu.classList.add("hidden");
