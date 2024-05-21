@@ -39,6 +39,8 @@ function dc2020_enqueue() {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'letterize', 'https://cdn.jsdelivr.net/npm/letterizejs@2.0.1/lib/letterize.min.js', array(), true );
 	wp_enqueue_script( 'anime', 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js', array(), true );
+	wp_enqueue_script( 'images-loaded', 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js', array(), true );
+	wp_enqueue_script( 'masonry', 'https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js', array('images-loaded'), true );
 	wp_enqueue_script( 'dc2020', get_stylesheet_directory_uri() . ASSET_JS . asset_path( 'site.js' ), array( 'anime' ), true );
 	wp_enqueue_style( 'gl-lightbox-css', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css' );
 	wp_enqueue_script( 'gl-lightbox-js', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), true );

@@ -45,4 +45,14 @@ jQuery( document ).ready( ($) => {
     loop: true,
     autoplayVideos: true,
   });
+
+  const grid = $('.m-grid').imagesLoaded( () => {
+    grid.masonry({
+      itemSelector: '.m-grid-item',
+      columnWidth: '.m-grid-sizer',
+      percentPosition: true,
+      gutter: 20,
+      resize: true,
+    });
+  });
 });
