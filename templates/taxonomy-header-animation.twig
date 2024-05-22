@@ -5,33 +5,35 @@
 
 {% block content %}
   <div class="masonry">
-    {% for work in function( 'masonry_order', works ) %}
-      <div class="lg:p-8 mb-8 inline-flex w-full flex-col shadow-md justify-center content-center">
-        <a href="#video-{{ work.ID }}" class="glightbox" data-glightbox="description: .custom-desc{{ work.ID }}" data-gallery="gallery">
-          {{ work.content }}
-        </a>
-        <div class="glightbox-desc custom-desc{{ work.ID }}">
-          {{ work.title }}
+    {% if works %}
+      {% for work in function( 'masonry_order', works ) %}
+        <div class="lg:p-8 mb-8 inline-flex w-full flex-col shadow-md justify-center content-center">
+          <a href="#video-{{ work.ID }}" class="glightbox" data-glightbox="description: .custom-desc{{ work.ID }}" data-gallery="gallery">
+            {{ work.content }}
+          </a>
+          <div class="glightbox-desc custom-desc{{ work.ID }}">
+            {{ work.title }}
+          </div>
+          <section class="caption my-2 text-lg text-center h-full w-full">{{ work.title }}</section>
+          {% if work.tags() %}
+            <p class="text-xs flex flex-row flex-wrap justify-center content-center">
+              <h5 class="text-gray-400">Related Work</h5>
+              {% for tag in work.tags() %}
+                  {% for related_work in tag.posts({
+                    posts_per_page: -1,
+                    post__not_in: [work.ID],
+                  }) %}
+                    <div class="text-gray-500"><a class="hover:underline" href="{{ related_work.link }}">{{  related_work.title }}</a></div>
+                  {% endfor %}
+              {% endfor %}
+            </p>
+          {% endif %}
+          <div class="hidden" id="video-{{ work.ID }}">
+            {{ work.content }}
+          </div>
         </div>
-        <section class="caption my-2 text-lg text-center h-full w-full">{{ work.title }}</section>
-        {% if work.tags() %}
-          <p class="text-xs flex flex-row flex-wrap justify-center content-center">
-            <h5 class="text-gray-400">Related Work</h5>
-            {% for tag in work.tags() %}
-                {% for related_work in tag.posts({
-                  posts_per_page: -1,
-                  post__not_in: [work.ID],
-                }) %}
-                  <div class="text-gray-500"><a class="hover:underline" href="{{ related_work.link }}">{{  related_work.title }}</a></div>
-                {% endfor %}
-            {% endfor %}
-          </p>
-        {% endif %}
-      <div class="hidden" id="video-{{ work.ID }}">
-        {{ work.content }}
-      </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    {% endif %}
 	</div>
 	{% include 'partial/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
 {% endblock %}
