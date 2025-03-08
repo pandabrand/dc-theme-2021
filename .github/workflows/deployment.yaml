@@ -18,7 +18,7 @@ jobs:
 
         - name: Build
           run: |
-            yarn build prod
+            yarn prod
         
         - name: Rsync to server
           uses: easingthemes/ssh-deploy@v5.0.3
@@ -28,6 +28,6 @@ jobs:
             REMOTE_USER: ${{ secrets.DC_USERNAME }}
             SOURCE: "."
             TARGET: ${{ secrets.REMOTE_TARGET}}
-            EXCLUDE: "/node_modules/"
+            EXCLUDE: "/node_modules/, composer.json, composer.lock, .env, yarn.lock, .git, .github"
             SCRIPT_BEFORE: |
               ls -la

@@ -3,6 +3,6 @@
 			<h2 class="block z-10 h2 p-8 text-2xl text-center lg:text-4xl font-bold text-white">{{post.title}}</h2>
 	</a>
 	{% if post.thumbnail.src %}
-			<img src="{{ post.thumbnail.src('archive-cover') }}" srcset="{{ post.thumbnail.srcset('archive-cover') }}" alt="{{ post.title }}">
+			<img class="object-cover h-full w-full" src="{{ post.thumbnail.src('archive-cover') }}" srcset="{{ post.thumbnail.srcset('archive-cover') }}" alt="{{ post.title }}">
 	{% endif %}
 </article>

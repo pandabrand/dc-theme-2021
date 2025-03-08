@@ -343,4 +343,15 @@ form input[type="submit"] {
 #menu-items .menu-item:hover:before {
   inset:auto 0 0;
 }
+
+.m-grid-sizer, .m-grid-item {
+  margin-bottom: 20px;
+  width: calc(100% - 20px);
+}
+
+@media screen and ( min-width:768px ) {
+  .m-grid-sizer, .m-grid-item {
+    width: calc(50% - 20px);
+  }
+}
 /* purgecss end ignore */

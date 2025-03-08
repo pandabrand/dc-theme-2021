@@ -11,9 +11,11 @@
 			</section>
 			<section class="archive-posts mx-2 lg:container lg:mx-auto">
 				<div class="masonry">
-					{% for post in function( 'masonry_order', archive_posts ) %}
-						{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
-					{% endfor %}
+					{% if archive_posts %}
+						{% for post in function( 'masonry_order', archive_posts ) %}
+							{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
+						{% endfor %}
+					{% endif %}
 				</div>
 			</section>
 		</article>
