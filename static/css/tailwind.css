@@ -354,4 +354,8 @@ form input[type="submit"] {
     width: calc(50% - 20px);
   }
 }
+
+.animation .wp-block-embed__wrapper iframe {
+  margin: auto;
+}
 /* purgecss end ignore */

@@ -33966,6 +33966,10 @@ form input[type="submit"] {
   }
 }
 
+.animation .wp-block-embed__wrapper iframe {
+  margin: auto;
+}
+
 /* purgecss end ignore */
 
 @media (min-width: 640px) {
