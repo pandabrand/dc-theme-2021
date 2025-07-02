@@ -30,7 +30,10 @@ module.exports = {
           'Open Sans',
           ...defaultTheme.fontFamily.sans,
         ]
-      }
+      },
+      gridTemplateColumns: {
+        'dc_column': 'minmax(300px, 800px)',
+      },
     },
   },
   variants: {

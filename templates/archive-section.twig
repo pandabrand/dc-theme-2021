@@ -4,7 +4,7 @@
 {% extends "index.twig" %}
 
 {% block content %}
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+  <div class="grid grid-cols-dc_column justify-center gap-2 md:gap-4 px-4 lg:px-10 mx-4 lg:mx-10 archive">
     {% for post in posts %}
       {% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
     {% endfor %}

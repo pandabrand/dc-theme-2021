@@ -30192,6 +30192,10 @@ video {
   grid-template-columns: none;
 }
 
+.grid-cols-dc_column {
+  grid-template-columns: minmax(300px, 800px);
+}
+
 .auto-cols-auto {
   grid-auto-columns: auto;
 }
@@ -33626,7 +33630,7 @@ video {
 @font-face {
   font-family: 'Dchristiansen-Regular';
 
-  src: url('./build/fonts/DC/Dchristiansen-Regular.otf'), url('./build/fonts/DC/Dchristiansen-Regular.ttf') format('truetype');
+  src: url('../fonts/DC/Dchristiansen-Regular.otf'), url('../fonts/DC/Dchristiansen-Regular.ttf') format('truetype');
 
   font-weight: normal;
 
@@ -33949,6 +33953,17 @@ form input[type="submit"] {
 .hdr-logo .hdr-logo-link:hover:before,
 #menu-items .menu-item:hover:before {
   inset:auto 0 0;
+}
+
+.m-grid-sizer, .m-grid-item {
+  margin-bottom: 20px;
+  width: calc(100% - 20px);
+}
+
+@media screen and ( min-width:768px ) {
+  .m-grid-sizer, .m-grid-item {
+    width: calc(50% - 20px);
+  }
 }
 
 /* purgecss end ignore */
@@ -63557,6 +63572,10 @@ form input[type="submit"] {
 
   .sm\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .sm\:grid-cols-dc_column {
+    grid-template-columns: minmax(300px, 800px);
   }
 
   .sm\:auto-cols-auto {
@@ -96566,6 +96585,10 @@ form input[type="submit"] {
     grid-template-columns: none;
   }
 
+  .md\:grid-cols-dc_column {
+    grid-template-columns: minmax(300px, 800px);
+  }
+
   .md\:auto-cols-auto {
     grid-auto-columns: auto;
   }
@@ -129571,6 +129594,10 @@ form input[type="submit"] {
 
   .lg\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .lg\:grid-cols-dc_column {
+    grid-template-columns: minmax(300px, 800px);
   }
 
   .lg\:auto-cols-auto {
@@ -162580,6 +162607,10 @@ form input[type="submit"] {
     grid-template-columns: none;
   }
 
+  .xl\:grid-cols-dc_column {
+    grid-template-columns: minmax(300px, 800px);
+  }
+
   .xl\:auto-cols-auto {
     grid-auto-columns: auto;
   }
@@ -195585,6 +195616,10 @@ form input[type="submit"] {
 
   .\32xl\:grid-cols-none {
     grid-template-columns: none;
+  }
+
+  .\32xl\:grid-cols-dc_column {
+    grid-template-columns: minmax(300px, 800px);
   }
 
   .\32xl\:auto-cols-auto {
